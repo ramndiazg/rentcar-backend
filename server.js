@@ -1,14 +1,16 @@
 require("dotenv").config();
 
 const express = require("express");
-const cors = require('cors');
+const cors = require("cors");
+const mongoose = require("mongoose");
+
 const appRoutes = require("./routes/routes.js");
 const userRoute = require("./routes/user.js");
 const clientRoute = require("./routes/client.js");
 const vehicleRoute = require("./routes/vehicle.js");
 const authRoute = require("./routes/auth.js");
+
 const app = express();
-const mongoose = require("mongoose");
 
 //middleware
 app.use(cors());
@@ -26,15 +28,22 @@ app.use("/api", vehicleRoute);
 app.use("/api", authRoute);
 
 //connect
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    app.listen(process.env.PORT, () => {
-      console.log(
-        `app connected with mongo and listening on port ${process.env.PORT}`
-      );
+if (process.env.NODE_ENV !== "test") {
+  mongoose
+    .connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then(() => {
+      app.listen(process.env.PORT, () => {
+        console.log(
+          `App connected with MongoDB and listening on port ${process.env.PORT}`
+        );
+      });
+    })
+    .catch((error) => {
+      console.log(error);
     });
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+}
+
+module.exports = app;
