@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../server'); // Asegúrate de que la ruta es correcta
+const app = require('../server');
 
 describe('GET /', () => {
   it('should return a 200 status code', async () => {
