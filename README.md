@@ -22,4 +22,7 @@ Start the application
 1. Start the development server inside the backend directory with nodemon: >npm run dev
 2. If everything is configured correctly, the server will be running at http://localhost:3546
 
+Test the application
+1. Test the development server inside the backend directory with: >npm test
+
 To test the routes you can use Postman or the app of your choice.
