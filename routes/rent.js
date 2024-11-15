@@ -5,6 +5,7 @@ const {
   getRent,
   createRent,
   deleteRent,
+  updateRent,
   returnVehicle
 } = require("../controllers/rentController.js");
 const rentRoute = express.Router();
@@ -19,6 +20,6 @@ rentRoute.post("/returnVehicle", verify.verifyToken, returnVehicle);
 
 rentRoute.delete("/rent/:id", verify.verifyToken, deleteRent);
 
-// rentRoute.patch("/rent/:id", verify.verifyToken, updateRent);
+rentRoute.patch("/rent/:id", verify.verifyToken, updateRent);
 
 module.exports = rentRoute;

@@ -50,7 +50,8 @@ const updateClient = async (req, res) => {
       { _id: id },
       {
         ...req.body,
-      }
+      },
+      { new: true }
     );
     if (!client) {
       return res.status(404).json({ err: "Client not found" });

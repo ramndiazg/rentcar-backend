@@ -55,7 +55,8 @@ const updateUser = async (req, res) => {
       { _id: id },
       {
         ...req.body,
-      }
+      },
+      { new: true }
     );
     if (!user) {
       return res.status(404).json({ err: "User not found" });

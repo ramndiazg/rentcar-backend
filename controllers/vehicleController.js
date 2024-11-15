@@ -72,7 +72,8 @@ const updateVehicle = async (req, res) => {
       { _id: id },
       {
         ...req.body,
-      }
+      },
+      { new: true }
     );
     if (!vehicle) {
       return res.status(404).json({ err: "Vehicle not found" });

@@ -93,10 +93,44 @@ const deleteRent = async (req, res) => {
   res.status(200).json({ message: "Rent deleted" });
 };
 
+const updateRent = async (req, res) => {
+  const { id } = req.params;
+  const { rentDays } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ err: "Rent not found" });
+  }
+
+  try {
+    const rent = await Rent.findById(id);
+    if (!rent) {
+      return res.status(404).json({ err: "Rent not found" });
+    }
+
+    const vehicle = await Vehicle.findById(rent.vehicle);
+    if (!vehicle) {
+      return res.status(404).json({ err: "Vehicle not found" });
+    }
+
+    const rentAmountUpdated = vehicle.costPerDay * rentDays;
+
+    const updatedRent = await Rent.findOneAndUpdate(
+      { _id: id },
+      {  ...req.body, rentAmount: rentAmountUpdated},
+      { new: true }
+    );
+
+    res.status(200).json(updatedRent);
+  } catch (err) {
+    res.status(500).json({ err: "An error occurred while updating the rent" });
+  }
+};
+
 module.exports = {
     getRents,
     getRent,
     createRent,
     deleteRent,
+    updateRent,
     returnVehicle,
   };
