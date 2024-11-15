@@ -3,6 +3,7 @@ const verify = require("../auth/auth.js")
 const {
   getRents,
   getRent,
+  getRentsByClient,
   createRent,
   deleteRent,
   updateRent,
@@ -13,6 +14,8 @@ const rentRoute = express.Router();
 rentRoute.get("/rent", verify.verifyToken, getRents);
 
 rentRoute.get("/rent/:id", verify.verifyToken, getRent);
+
+rentRoute.get("/rentbyclient/:id", verify.verifyToken, getRentsByClient);
 
 rentRoute.post("/rent", verify.verifyToken, createRent);
 

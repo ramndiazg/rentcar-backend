@@ -2,7 +2,6 @@ const Rent = require("../models/Rent.js");
 const Vehicle = require("../models/Vehicle");
 const mongoose = require("mongoose");
 
-
 //get all rents
 const getRents = async (req, res) => {
   const rents = await Rent.find({}).sort({ createdAt: -1 });
@@ -20,6 +19,17 @@ const getRent = async (req, res) => {
     return res.status(404).json({ err: "Rent not found" });
   }
   res.status(200).json(rent);
+};
+
+//get rent by selected client
+const getRentsByClient = async (req, res) => {
+  try {
+    const clientId = req.params.id;
+    const rents = await Rent.find({ client: clientId }).populate("vehicle");
+    res.json(rents);
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
 };
 
 //create a new rent
@@ -116,7 +126,7 @@ const updateRent = async (req, res) => {
 
     const updatedRent = await Rent.findOneAndUpdate(
       { _id: id },
-      {  ...req.body, rentAmount: rentAmountUpdated},
+      { ...req.body, rentAmount: rentAmountUpdated },
       { new: true }
     );
 
@@ -127,10 +137,11 @@ const updateRent = async (req, res) => {
 };
 
 module.exports = {
-    getRents,
-    getRent,
-    createRent,
-    deleteRent,
-    updateRent,
-    returnVehicle,
-  };
+  getRents,
+  getRent,
+  getRentsByClient,
+  createRent,
+  deleteRent,
+  updateRent,
+  returnVehicle,
+};
