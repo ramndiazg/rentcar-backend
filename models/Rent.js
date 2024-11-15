@@ -19,8 +19,8 @@ const RentSchema = new Schema(
       required: true },
     rentStatus: {
       type: String,
-      enum: ["paid", "pending", "cancelled"],
-      default: "pending",
+      enum: ["actived", "completed", "cancelled"],
+      default: "actived",
       message: "{VALUE} is not supported",
       required: true,
     },

@@ -26,7 +26,7 @@ const createRent = async (req, res) => {
       rentAmount,
     });
 
-    //changing status in vehicle
+    // Changing vehicle status to "in use"
     vehicle.status = "in use";
     await vehicle.save();
 
@@ -36,6 +36,30 @@ const createRent = async (req, res) => {
   }
 };
 
+const returnVehicle = async (req, res) => {
+  const { rentId } = req.body;
+
+  try {
+    const rent = await Rent.findById(rentId).populate("vehicle");
+    if (!rent || rent.rentStatus === "cancelled") {
+      return res.status(400).json({ error: "Invalid rent transaction" });
+    }
+
+    // Changing rent status to completed
+    rent.rentStatus = "completed";
+    await rent.save();
+
+    // Changing vehicle status to "available"
+    rent.vehicle.status = "available";
+    await rent.vehicle.save();
+
+    res.status(200).json(rent);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 module.exports = {
     createRent,
+    returnVehicle,
   };
