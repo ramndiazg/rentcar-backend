@@ -9,6 +9,7 @@ const userRoute = require("./routes/user.js");
 const clientRoute = require("./routes/client.js");
 const vehicleRoute = require("./routes/vehicle.js");
 const authRoute = require("./routes/auth.js");
+const rentRoute = require("./routes/rent.js");
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use("/api", userRoute);
 app.use("/api", clientRoute);
 app.use("/api", vehicleRoute);
 app.use("/api", authRoute);
+app.use("/api", rentRoute);
 
 //connect
 if (process.env.NODE_ENV !== "test") {
