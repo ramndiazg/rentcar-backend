@@ -56,6 +56,7 @@ const createRent = async (req, res) => {
   }
 };
 
+//return vehicle in rent
 const returnVehicle = async (req, res) => {
   const { rentId } = req.body;
 
@@ -79,9 +80,23 @@ const returnVehicle = async (req, res) => {
   }
 };
 
+//delete selected rent
+const deleteRent = async (req, res) => {
+  const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ err: "Rent not found" });
+  }
+  const rent = await Rent.findByIdAndDelete(id);
+  if (!rent) {
+    return res.status(404).json({ err: "Rent not found" });
+  }
+  res.status(200).json({ message: "Rent deleted" });
+};
+
 module.exports = {
     getRents,
     getRent,
     createRent,
+    deleteRent,
     returnVehicle,
   };
