@@ -2,6 +2,13 @@ const Rent = require("../models/Rent.js");
 const Vehicle = require("../models/Vehicle");
 const mongoose = require("mongoose");
 
+
+//get all rents
+const getRents = async (req, res) => {
+  const rents = await Rent.find({}).sort({ createdAt: -1 });
+  res.status(200).json(rents);
+};
+
 //create a new rent
 const createRent = async (req, res) => {
   const { clientId, vehicleId, userId, rentDays } = req.body;
@@ -60,6 +67,7 @@ const returnVehicle = async (req, res) => {
 };
 
 module.exports = {
+    getRents,
     createRent,
     returnVehicle,
   };
