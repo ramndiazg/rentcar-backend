@@ -9,6 +9,19 @@ const getRents = async (req, res) => {
   res.status(200).json(rents);
 };
 
+//get selected rent
+const getRent = async (req, res) => {
+  const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ err: "Rent not found" });
+  }
+  const rent = await Rent.findById(id);
+  if (!rent) {
+    return res.status(404).json({ err: "Rent not found" });
+  }
+  res.status(200).json(rent);
+};
+
 //create a new rent
 const createRent = async (req, res) => {
   const { clientId, vehicleId, userId, rentDays } = req.body;
@@ -68,6 +81,7 @@ const returnVehicle = async (req, res) => {
 
 module.exports = {
     getRents,
+    getRent,
     createRent,
     returnVehicle,
   };
