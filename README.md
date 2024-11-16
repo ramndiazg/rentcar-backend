@@ -26,3 +26,5 @@ Test the application
 1. Test the development server inside the backend directory with: >npm test
 
 To test the routes you can use Postman or the app of your choice.
+
+Deployment link: https://rentcar-backend.onrender.com
