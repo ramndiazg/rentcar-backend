@@ -39,6 +39,7 @@ const createVehicle = async (req, res) => {
     status,
     costPerDay,
     comments,
+    lastServiceDate,
   } = req.body;
   //adding new vehicle to db.
   try {
@@ -54,6 +55,7 @@ const createVehicle = async (req, res) => {
       status,
       costPerDay,
       comments,
+      lastServiceDate,
     });
     res.status(200).json(vehicle);
   } catch (err) {
