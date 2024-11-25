@@ -22,6 +22,13 @@ Start the application
 1. Start the development server inside the backend directory with nodemon: >npm run dev
 2. If everything is configured correctly, the server will be running at http://localhost:3546
 
+Start with Docker
+1. Install docker
+2. Open docker and make sure its running
+3. Pull the docker image : "11236c792793"
+4. Run this command to start your Backend: docker run -d -p 3546:3546 rentcarapp
+5. Now you can run the app. Generally if you have an issue try destroying the container and re-running with the command above.
+
 Test the application
 1. Test the development server inside the backend directory with: >npm test
 
